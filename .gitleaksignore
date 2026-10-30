@@ -1,0 +1,6 @@
+# Hallazgos revisados y cerrados.
+# Semana 5: secreto JWT expuesto en el commit 7edb73a
+# (semana-05-vault-gitleaks/app/server.js, línea 19). Remediación: retirado del
+# código (commit ffdf5c0), almacenado en HashiCorp Vault y ROTADO; el valor
+# filtrado ya no firma ni valida tokens. Detectado el 29/10/2026.
+7edb73a7aefe87895677316d40f5390c76041f93:semana-05-vault-gitleaks/app/server.js:generic-api-key:19

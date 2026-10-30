@@ -10,3 +10,9 @@ Cada tarea del curso vive en **su propia carpeta**, con su código, sus scripts,
 | [`semana-05-vault-gitleaks/`](semana-05-vault-gitleaks/) | Gestión de secretos y detección de fugas | HashiCorp Vault, Gitleaks | `semana-05` |
 
 La aplicación de laboratorio es **Way Créditos Lab**: un módulo en Node.js que simula la consulta de clientes y cuotas de una empresa de ventas al crédito. Es **intencionalmente vulnerable**, así que se ejecuta solo dentro de Docker.
+
+## Archivos comunes
+
+- `.gitleaks.toml`: configuración de Gitleaks para todo el repositorio (reglas por defecto y exclusión de reportes generados).
+- `.gitleaksignore`: hallazgos ya revisados y remediados.
+- `.gitignore`: excluye dependencias, bases locales y credenciales de Vault.
