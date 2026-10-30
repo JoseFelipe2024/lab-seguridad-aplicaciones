@@ -15,7 +15,7 @@ fi
 
 cd "$ROOT"
 semgrep scan "${CONFIG[@]}" --metrics=off --exclude node_modules \
-  --json --output "$OUT/semgrep-resultados.json" app/
-semgrep scan "${CONFIG[@]}" --metrics=off --exclude node_modules \
-  --text --output "$OUT/semgrep-resultados.txt" app/
-semgrep scan "${CONFIG[@]}" --metrics=off --exclude node_modules app/
+  --json-output="$OUT/semgrep-resultados.json" \
+  --sarif-output="$OUT/semgrep-resultados.sarif" \
+  --text-output="$OUT/semgrep-resultados.txt" \
+  app/

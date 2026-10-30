@@ -21,7 +21,7 @@ dependency-check \
   --scan "$ROOT/app" \
   --exclude "**/node_modules/**" \
   --data "$DATA" \
-  "${FUENTE[@]}" \
+  "${FUENTE[@]}" ${DC_EXTRA_ARGS:-} \
   --disableOssIndex --disableCentral \
   --format HTML --format JSON --format CSV \
   --out "$OUT"
