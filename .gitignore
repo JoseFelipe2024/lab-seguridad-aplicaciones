@@ -1,0 +1,5 @@
+node_modules/
+*.log
+.env
+# Base de datos local de Dependency-Check (se regenera)
+.dc-data/
