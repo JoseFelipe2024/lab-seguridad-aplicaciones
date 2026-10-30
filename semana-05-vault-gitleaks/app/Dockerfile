@@ -6,7 +6,7 @@ FROM ${BASE_IMAGE}
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci --omit=dev --no-audit --no-fund
-COPY server.js ./
+COPY server.js vault.js ./
 
 ENV PORT=3000
 EXPOSE 3000

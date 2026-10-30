@@ -15,8 +15,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-// [VULN] Secreto embebido en el código fuente (CWE-798)
-const JWT_SECRET = "HEb3G7yZHhXrV4Kw8JbW04Ejd5K1TCGOwq2gRFFV";
+// Remediación CWE-798: el secreto de firma JWT ya no está en el código.
+// Se recupera de HashiCorp Vault (AppRole + KV v2) al iniciar la aplicación.
+const { cargarSecretoJwt, VAULT_ADDR } = require("./vault");
+let JWT_SECRET = null;
+let JWT_SECRET_VERSION = null;
 
 let db;
 
@@ -104,7 +107,23 @@ app.post("/api/preferencias", (req, res) => {
   res.json({ ok: true, prefs });
 });
 
-initSqlJs().then(SQL => {
+// Estado del secreto: confirma su origen sin revelar el valor.
+app.get("/api/salud", (req, res) => {
+  res.json({ estado: "ok", secreto_jwt: { origen: "HashiCorp Vault", ruta: "secret/way-creditos-lab/jwt", version: JWT_SECRET_VERSION, cargado: !!JWT_SECRET } });
+});
+
+async function iniciar() {
+  try {
+    const s = await cargarSecretoJwt();
+    JWT_SECRET = s.valor;
+    JWT_SECRET_VERSION = s.version;
+    console.log(`Secreto JWT recuperado desde Vault (${VAULT_ADDR}), versión ${s.version}`);
+  } catch (e) {
+    // Sin secreto no hay arranque: no existe un valor de respaldo en el código.
+    console.error(`No se pudo obtener el secreto desde Vault: ${e.message}`);
+    process.exit(1);
+  }
+  const SQL = await initSqlJs();
   db = new SQL.Database();
   db.run(`CREATE TABLE clientes (id INTEGER PRIMARY KEY, nombre TEXT, sucursal TEXT, saldo REAL);
           INSERT INTO clientes VALUES (1,'María López','Zona 11',4500.00),(2,'Carlos Pérez','Zona 11',1200.50),
@@ -113,4 +132,6 @@ initSqlJs().then(SQL => {
           INSERT INTO usuarios VALUES (1,'admin','admin123');`);
   const port = process.env.PORT || 3000;
   app.listen(port, () => console.log(`Way Créditos Lab escuchando en http://0.0.0.0:${port}`));
-});
+}
+
+iniciar();
