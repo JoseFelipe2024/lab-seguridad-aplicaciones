@@ -1,0 +1,205 @@
+                    
+                    
+┌──────────────────┐
+│ 22 Code Findings │
+└──────────────────┘
+                 
+    app/server.js
+     ❱ opt.tools.reglas-semgrep.javascript.express.security.audit.express-check-csurf-middleware-usage
+          ❰❰ Blocking ❱❱
+          A CSRF middleware was not detected in your express application. Ensure you are either using one such
+          as `csurf` or `csrf` (see rule references) and/or you are properly doing CSRF validation in your    
+          routes with a token or cookies.                                                                     
+                                                                                                              
+           13┆ const app = express();
+   
+    ❯❱ opt.tools.reglas-semgrep.javascript.lang.security.html-in-template-string
+          ❰❰ Blocking ❱❱
+          This template literal looks like HTML and has interpolated variables. These variables are not HTML-
+          encoded by default. If the variables contain HTML tags, these may be interpreted by the browser,   
+          resulting in cross-site scripting (XSS).                                                           
+                                                                                                             
+           24┆   return `<!DOCTYPE html><html lang="es"><head><meta
+               charset="utf-8"><title>${title}</title></head>      
+           25┆ <body style="font-family:sans-serif;max-width:760px;margin:30px auto">
+           26┆ <h1>Way Créditos Lab</h1>
+           27┆ <nav><a href="/">Inicio</a> | <a href="/clientes">Clientes</a> | <a
+               href="/buscar?q=">Buscar</a> |                                     
+           28┆ <a href="/login">Ingresar</a> | <a href="/diagnostico">Diagnóstico de red</a> | <a
+               href="/api/cuotas?cliente=1">API cuotas</a></nav>                                 
+           29┆ <hr>${body}</body></html>`;
+            ⋮┆----------------------------------------
+           33┆ res.send(layout("Inicio", `<p>Sistema de laboratorio para consulta de clientes, créditos y
+               cuotas.</p>                                                                               
+           34┆ <p>Fecha del servidor: ${moment().format("DD/MM/YYYY HH:mm")}</p>`));
+   
+   ❯❯❱ opt.tools.reglas-semgrep.javascript.express.security.injection.tainted-sql-string
+          ❰❰ Blocking ❱❱
+          Detected user input used to manually construct a SQL string. This is usually bad practice because 
+          manual construction could accidentally result in a SQL injection. An attacker could use a SQL     
+          injection to steal or modify contents of the database. Instead, use a parameterized query which is
+          available by default in most database engines. Alternatively, consider using an object-relational 
+          mapper (ORM) such as Sequelize which will protect your queries.                                   
+                                                                                                            
+           40┆ const sql = "SELECT id, nombre, sucursal, saldo FROM clientes WHERE sucursal = '" +
+               sucursal + "'";                                                                    
+   
+    ❯❱ opt.tools.reglas-semgrep.javascript.lang.security.html-in-template-string
+          ❰❰ Blocking ❱❱
+          This template literal looks like HTML and has interpolated variables. These variables are not HTML-
+          encoded by default. If the variables contain HTML tags, these may be interpreted by the browser,   
+          resulting in cross-site scripting (XSS).                                                           
+                                                                                                             
+           44┆ const html = rows.map(r =>                                                             
+               `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>Q${r[3]}</td></tr>`).join("");
+   
+    ❯❱ opt.tools.reglas-semgrep.javascript.express.security.audit.xss.direct-response-write
+          ❰❰ Blocking ❱❱
+          Detected directly writing to a Response object from user-defined input. This bypasses any HTML      
+          escaping and may expose your application to a Cross-Site-scripting (XSS) vulnerability. Instead, use
+          'resp.render()' to render safely escaped HTML.                                                      
+                                                                                                              
+           45┆ res.send(layout("Clientes", `<form action="/clientes"><label>Sucursal <input
+               name="sucursal" value="${sucursal}"></label>                                
+           46┆ <button>Filtrar</button></form><table border="1" cellpadding="4"><tr><th>ID</th><th>Nombre<
+               /th><th>Sucursal</th><th>Saldo</th></tr>${html}</table>`));                                
+   
+    ❯❱ opt.tools.reglas-semgrep.javascript.lang.security.html-in-template-string
+          ❰❰ Blocking ❱❱
+          This template literal looks like HTML and has interpolated variables. These variables are not HTML-
+          encoded by default. If the variables contain HTML tags, these may be interpreted by the browser,   
+          resulting in cross-site scripting (XSS).                                                           
+                                                                                                             
+           45┆ res.send(layout("Clientes", `<form action="/clientes"><label>Sucursal <input
+               name="sucursal" value="${sucursal}"></label>                                
+           46┆ <button>Filtrar</button></form><table border="1" cellpadding="4"><tr><th>ID</th><th>Nombre<
+               /th><th>Sucursal</th><th>Saldo</th></tr>${html}</table>`));                                
+   
+    ❯❱ opt.tools.reglas-semgrep.javascript.express.security.injection.raw-html-format
+          ❰❰ Blocking ❱❱
+          User data flows into the host portion of this manually-constructed HTML. This can introduce a Cross-
+          Site-Scripting (XSS) vulnerability if this comes from user-provided input. Consider using a         
+          sanitization library such as DOMPurify to sanitize the HTML within.                                 
+                                                                                                              
+           49┆ res.status(500).send(layout("Error", `<pre>Error SQL: ${e.message}\n${sql}</pre>`));
+   
+    ❯❱ opt.tools.reglas-semgrep.javascript.lang.security.html-in-template-string
+          ❰❰ Blocking ❱❱
+          This template literal looks like HTML and has interpolated variables. These variables are not HTML-
+          encoded by default. If the variables contain HTML tags, these may be interpreted by the browser,   
+          resulting in cross-site scripting (XSS).                                                           
+                                                                                                             
+           49┆ res.status(500).send(layout("Error", `<pre>Error SQL: ${e.message}\n${sql}</pre>`));
+   
+    ❯❱ opt.tools.reglas-semgrep.javascript.express.security.audit.xss.direct-response-write
+          ❰❰ Blocking ❱❱
+          Detected directly writing to a Response object from user-defined input. This bypasses any HTML      
+          escaping and may expose your application to a Cross-Site-scripting (XSS) vulnerability. Instead, use
+          'resp.render()' to render safely escaped HTML.                                                      
+                                                                                                              
+           56┆ res.send(layout("Buscar", `<form action="/buscar"><input name="q"
+               value=""><button>Buscar</button></form>                          
+           57┆ <p>Resultados para: ${q}</p>`));
+   
+    ❯❱ opt.tools.reglas-semgrep.javascript.lang.security.html-in-template-string
+          ❰❰ Blocking ❱❱
+          This template literal looks like HTML and has interpolated variables. These variables are not HTML-
+          encoded by default. If the variables contain HTML tags, these may be interpreted by the browser,   
+          resulting in cross-site scripting (XSS).                                                           
+                                                                                                             
+           56┆ res.send(layout("Buscar", `<form action="/buscar"><input name="q"
+               value=""><button>Buscar</button></form>                          
+           57┆ <p>Resultados para: ${q}</p>`));
+   
+    ❯❱ opt.tools.reglas-semgrep.javascript.jsonwebtoken.security.hardcoded-jwt-secret
+          ❰❰ Blocking ❱❱
+          A hard-coded credential was detected. It is not recommended to store credentials in source-code, as
+          this risks secrets being leaked and used by either an internal or external malicious adversary. It 
+          is recommended to use environment variables to securely provide credentials or retrieve credentials
+          from a secure vault or HSM (Hardware Security Module).                                             
+                                                                                                             
+           70┆ const token = jwt.sign({ usuario, rol: "admin" }, JWT_SECRET);
+   
+    ❯❱ opt.tools.reglas-semgrep.javascript.express.security.audit.xss.direct-response-write
+          ❰❰ Blocking ❱❱
+          Detected directly writing to a Response object from user-defined input. This bypasses any HTML      
+          escaping and may expose your application to a Cross-Site-scripting (XSS) vulnerability. Instead, use
+          'resp.render()' to render safely escaped HTML.                                                      
+                                                                                                              
+           73┆ return res.send(layout("Bienvenido", `<p>Bienvenido ${usuario}</p>`));
+   
+    ❯❱ opt.tools.reglas-semgrep.javascript.express.security.injection.raw-html-format
+          ❰❰ Blocking ❱❱
+          User data flows into the host portion of this manually-constructed HTML. This can introduce a Cross-
+          Site-Scripting (XSS) vulnerability if this comes from user-provided input. Consider using a         
+          sanitization library such as DOMPurify to sanitize the HTML within.                                 
+                                                                                                              
+           73┆ return res.send(layout("Bienvenido", `<p>Bienvenido ${usuario}</p>`));
+   
+    ❯❱ opt.tools.reglas-semgrep.javascript.lang.security.html-in-template-string
+          ❰❰ Blocking ❱❱
+          This template literal looks like HTML and has interpolated variables. These variables are not HTML-
+          encoded by default. If the variables contain HTML tags, these may be interpreted by the browser,   
+          resulting in cross-site scripting (XSS).                                                           
+                                                                                                             
+           73┆ return res.send(layout("Bienvenido", `<p>Bienvenido ${usuario}</p>`));
+   
+    ❯❱ opt.tools.reglas-semgrep.javascript.express.security.injection.raw-html-format
+          ❰❰ Blocking ❱❱
+          User data flows into the host portion of this manually-constructed HTML. This can introduce a Cross-
+          Site-Scripting (XSS) vulnerability if this comes from user-provided input. Consider using a         
+          sanitization library such as DOMPurify to sanitize the HTML within.                                 
+                                                                                                              
+           75┆ res.status(401).send(layout("Ingresar", `<p>Usuario o clave incorrectos para
+               ${usuario}</p>`));                                                          
+   
+    ❯❱ opt.tools.reglas-semgrep.javascript.lang.security.html-in-template-string
+          ❰❰ Blocking ❱❱
+          This template literal looks like HTML and has interpolated variables. These variables are not HTML-
+          encoded by default. If the variables contain HTML tags, these may be interpreted by the browser,   
+          resulting in cross-site scripting (XSS).                                                           
+                                                                                                             
+           75┆ res.status(401).send(layout("Ingresar", `<p>Usuario o clave incorrectos para
+               ${usuario}</p>`));                                                          
+   
+   ❯❯❱ opt.tools.reglas-semgrep.javascript.lang.security.detect-child-process
+          ❰❰ Blocking ❱❱
+          Detected calls to child_process from a function argument `req`. This could lead to a command  
+          injection if the input is user controllable. Try to avoid calls to child_process, and if it is
+          needed ensure user input is correctly sanitized or sandboxed.                                 
+                                                                                                        
+           85┆ exec("ping -c 1 " + host, { timeout: 15000 }, (err, stdout, stderr) => {
+   
+    ❯❱ opt.tools.reglas-semgrep.javascript.lang.security.html-in-template-string
+          ❰❰ Blocking ❱❱
+          This template literal looks like HTML and has interpolated variables. These variables are not HTML-
+          encoded by default. If the variables contain HTML tags, these may be interpreted by the browser,   
+          resulting in cross-site scripting (XSS).                                                           
+                                                                                                             
+           86┆ res.send(layout("Diagnóstico", `<pre>${stdout}${stderr}</pre>`));
+   
+    ❯❱ opt.tools.reglas-semgrep.javascript.browser.security.eval-detected
+          ❰❰ Blocking ❱❱
+          Detected the use of eval(). eval() can be dangerous if used to evaluate dynamic content. If this 
+          content can be input from outside the program, this may be a code injection vulnerability. Ensure
+          evaluated content is not definable by external sources.                                          
+                                                                                                           
+           94┆ const meses = eval(plazo);
+   
+   ❯❯❱ opt.tools.reglas-semgrep.javascript.lang.security.audit.code-string-concat
+          ❰❰ Blocking ❱❱
+          Found data from an Express or Next web request flowing to `eval`. If this data is user-controllable
+          this can lead to execution of arbitrary system commands in the context of your application process.
+          Avoid `eval` whenever possible.                                                                    
+                                                                                                             
+           94┆ const meses = eval(plazo);
+   
+   ❯❯❱ opt.tools.reglas-semgrep.javascript.express.security.injection.tainted-sql-string
+          ❰❰ Blocking ❱❱
+          Detected user input used to manually construct a SQL string. This is usually bad practice because 
+          manual construction could accidentally result in a SQL injection. An attacker could use a SQL     
+          injection to steal or modify contents of the database. Instead, use a parameterized query which is
+          available by default in most database engines. Alternatively, consider using an object-relational 
+          mapper (ORM) such as Sequelize which will protect your queries.                                   
+                                                                                                            
+           95┆ const r = db.exec("SELECT saldo FROM clientes WHERE id = " + cliente);
