@@ -7,5 +7,6 @@ Cada tarea del curso vive en **su propia carpeta**, con su código, sus scripts,
 | Carpeta | Tarea | Herramientas | Etiqueta |
 |---|---|---|---|
 | [`semana-00-entorno/`](semana-00-entorno/) | Configuración del entorno de práctica | Git, Docker, Semgrep, OWASP Dependency-Check, OWASP ZAP | `semana-00` |
+| [`semana-05-vault-gitleaks/`](semana-05-vault-gitleaks/) | Gestión de secretos y detección de fugas | HashiCorp Vault, Gitleaks | `semana-05` |
 
 La aplicación de laboratorio es **Way Créditos Lab**: un módulo en Node.js que simula la consulta de clientes y cuotas de una empresa de ventas al crédito. Es **intencionalmente vulnerable**, así que se ejecuta solo dentro de Docker.
