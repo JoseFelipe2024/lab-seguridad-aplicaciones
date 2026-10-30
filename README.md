@@ -1,50 +1,11 @@
 # Laboratorio de Seguridad en Aplicaciones — UMG
 
-Repositorio de práctica de José Daniel Felipe Calderón para el curso **Seguridad en Aplicaciones** (Maestría en Seguridad de Sistemas, Universidad Mariano Gálvez de Guatemala).
+Repositorio de práctica de **José Daniel Felipe Calderón** (carné 1493-19-7376) para el curso **Seguridad en Aplicaciones**, Maestría en Seguridad de Sistemas, Universidad Mariano Gálvez de Guatemala.
 
-Aquí se guardan el código de laboratorio, las configuraciones y las evidencias de cada herramienta del curso.
+Cada tarea del curso vive en **su propia carpeta**, con su código, sus scripts, sus evidencias y su README. Cada entrega también está marcada con una etiqueta de Git (`git checkout semana-XX`).
 
-> ⚠️ `app/` contiene una aplicación **intencionalmente vulnerable** (Way Créditos Lab). Ejecútela solo dentro de Docker y nunca la exponga a Internet.
+| Carpeta | Tarea | Herramientas | Etiqueta |
+|---|---|---|---|
+| [`semana-00-entorno/`](semana-00-entorno/) | Configuración del entorno de práctica | Git, Docker, Semgrep, OWASP Dependency-Check, OWASP ZAP | `semana-00` |
 
-## Estructura
-
-```
-lab-seguridad-aplicaciones/
-├── app/                       # Way Créditos Lab (Node.js + Express) y su Dockerfile
-├── scripts/                   # Scripts de instalación y ejecución de cada herramienta
-│   ├── 00-instalar-herramientas.sh
-│   ├── 01-verificar-entorno.sh
-│   ├── 02-levantar-app.sh
-│   ├── 03-semgrep.sh          # SAST
-│   ├── 04-dependency-check.sh # SCA
-│   └── 05-zap.sh              # DAST
-└── evidencias/                # Reportes generados (JSON, HTML, TXT) y capturas
-    ├── semgrep/
-    ├── dependency-check/
-    ├── zap/
-    └── capturas/
-```
-
-## Herramientas del entorno
-
-| Componente | Uso en el curso |
-|---|---|
-| Git | Control de versiones del código, configuraciones y evidencias |
-| Docker | Ejecutar la aplicación de laboratorio y herramientas de forma aislada |
-| Semgrep | Análisis estático (SAST) del código fuente |
-| OWASP Dependency-Check | Análisis de componentes (SCA) contra la base de CVE del NVD |
-| OWASP ZAP | Análisis dinámico (DAST) contra la aplicación en ejecución |
-
-## Uso rápido
-
-```bash
-./scripts/00-instalar-herramientas.sh   # una sola vez (Ubuntu 22.04/24.04)
-./scripts/01-verificar-entorno.sh
-./scripts/02-levantar-app.sh            # http://localhost:3000
-./scripts/03-semgrep.sh
-NVD_API_KEY=<su-clave> ./scripts/04-dependency-check.sh
-./scripts/05-zap.sh
-git add evidencias && git commit -m "Evidencias de laboratorio"
-```
-
-Las vulnerabilidades sembradas en `app/server.js` están marcadas con comentarios `[VULN]` (inyección SQL, XSS reflejado, inyección de comandos, `eval`, secretos embebidos, cookies inseguras y prototype pollution). Las dependencias de `app/package.json` están fijadas en versiones con CVE conocidos a propósito.
+La aplicación de laboratorio es **Way Créditos Lab**: un módulo en Node.js que simula la consulta de clientes y cuotas de una empresa de ventas al crédito. Es **intencionalmente vulnerable**, así que se ejecuta solo dentro de Docker.

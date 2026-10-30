@@ -3,3 +3,7 @@ node_modules/
 .env
 # Base de datos local de Dependency-Check (se regenera)
 .dc-data/
+
+# Vault: llaves de unseal, token root y credenciales AppRole (nunca a Git)
+.vault-init.json
+.app-vault.env
