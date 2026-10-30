@@ -1,0 +1,14 @@
+# Configuración de Gitleaks para el laboratorio.
+# Usa todas las reglas por defecto y excluye los reportes generados por
+# Dependency-Check, cuyas descripciones de CVE traen credenciales de ejemplo
+# (falsos positivos como "prod-secret-key-123").
+title = "Gitleaks - lab-seguridad-aplicaciones"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Reportes generados por herramientas (no son código de la aplicación)"
+paths = [
+  '''(^|/)evidencias/dependency-check/.*''',
+]

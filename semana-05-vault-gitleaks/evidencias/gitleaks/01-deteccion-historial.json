@@ -1,0 +1,22 @@
+[
+ {
+  "RuleID": "generic-api-key",
+  "Description": "Detected a Generic API Key, potentially exposing access to various services and sensitive operations.",
+  "StartLine": 19,
+  "EndLine": 19,
+  "StartColumn": 7,
+  "EndColumn": 61,
+  "Match": "JWT_SECRET = \"HEb3G7yZHh...\"",
+  "Secret": "HEb3G7yZHh...",
+  "File": "semana-05-vault-gitleaks/app/server.js",
+  "SymlinkFile": "",
+  "Commit": "7edb73a7aefe87895677316d40f5390c76041f93",
+  "Entropy": 4.871928,
+  "Author": "José Daniel Felipe Calderón",
+  "Email": "jfelipec@miumg.edu.gt",
+  "Date": "2026-10-30T04:24:01Z",
+  "Message": "Fortalece el secreto de firma JWT de la aplicación\n\nCo-Authored-By: Claude Opus 5.5 \u003cnoreply@anthropic.com\u003e\nClaude-Session: https://claude.ai/code/session_01BDBJSDUsv7KymG5Xx7WjSv",
+  "Tags": [],
+  "Fingerprint": "7edb73a7aefe87895677316d40f5390c76041f93:semana-05-vault-gitleaks/app/server.js:generic-api-key:19"
+ }
+]
