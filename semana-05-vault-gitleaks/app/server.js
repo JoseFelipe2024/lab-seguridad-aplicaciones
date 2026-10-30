@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 // [VULN] Secreto embebido en el código fuente (CWE-798)
-const JWT_SECRET = "way-secreto-2024";
+const JWT_SECRET = "HEb3G7yZHhXrV4Kw8JbW04Ejd5K1TCGOwq2gRFFV";
 
 let db;
 
